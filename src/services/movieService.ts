@@ -68,6 +68,160 @@ let MOVIES_DATA = {
         date: "2023-05-22"
       }
     ]
+  },
+  "3": {
+    id: "3",
+    title: "The Dark Knight",
+    backdropUrl: "https://image.tmdb.org/t/p/original/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg",
+    posterUrl: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    rating: 4.7,
+    year: "2008",
+    releaseDate: "July 18, 2008",
+    runtime: "152 min",
+    director: "Christopher Nolan",
+    cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart", "Michael Caine", "Gary Oldman"],
+    genres: ["Action", "Crime", "Drama"],
+    overview: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+    trailerUrl: "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+    watchUrl: "https://www.hbomax.com/",
+    reviews: [
+      {
+        id: "301",
+        author: "David Wilson",
+        avatarUrl: "https://i.pravatar.cc/150?img=15",
+        content: "Heath Ledger's performance as the Joker is simply unforgettable. One of the greatest comic book films ever made.",
+        rating: 5,
+        date: "2023-04-10"
+      },
+      {
+        id: "302",
+        author: "Sarah Thomas",
+        avatarUrl: "https://i.pravatar.cc/150?img=20",
+        content: "The Dark Knight redefined what a superhero movie could be. Nolan's direction and the performances are stellar.",
+        rating: 4.8,
+        date: "2023-06-05"
+      }
+    ]
+  },
+  "4": {
+    id: "4",
+    title: "Pulp Fiction",
+    backdropUrl: "https://image.tmdb.org/t/p/original/suaEOtk1N1sgg2QM528GluxMcAd.jpg",
+    posterUrl: "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+    rating: 4.6,
+    year: "1994",
+    releaseDate: "October 14, 1994",
+    runtime: "154 min",
+    director: "Quentin Tarantino",
+    cast: ["John Travolta", "Uma Thurman", "Samuel L. Jackson", "Bruce Willis"],
+    genres: ["Crime", "Drama"],
+    overview: "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
+    trailerUrl: "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
+    watchUrl: "https://www.amazon.com/Pulp-Fiction-John-Travolta/dp/B008Y7YYG2",
+    reviews: [
+      {
+        id: "401",
+        author: "Robert Johnson",
+        avatarUrl: "https://i.pravatar.cc/150?img=25",
+        content: "Tarantino's masterpiece. The nonlinear storytelling and dialogue are revolutionary.",
+        rating: 4.9,
+        date: "2023-03-15"
+      }
+    ]
+  },
+  "5": {
+    id: "5",
+    title: "Parasite",
+    backdropUrl: "https://image.tmdb.org/t/p/original/ApiBzeaa95TNYliSbQ8pJv4Fje7.jpg",
+    posterUrl: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    rating: 4.5,
+    year: "2019",
+    releaseDate: "May 30, 2019",
+    runtime: "132 min",
+    director: "Bong Joon-ho",
+    cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong", "Choi Woo-shik", "Park So-dam"],
+    genres: ["Drama", "Thriller", "Comedy"],
+    overview: "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.",
+    trailerUrl: "https://www.youtube.com/watch?v=5xH0HfJHsaY",
+    watchUrl: "https://www.hulu.com/",
+    reviews: [
+      {
+        id: "501",
+        author: "Michelle Park",
+        avatarUrl: "https://i.pravatar.cc/150?img=30",
+        content: "A masterful blend of genres that delivers scathing social commentary. Deserved every Oscar it won.",
+        rating: 4.8,
+        date: "2023-05-07"
+      },
+      {
+        id: "502",
+        author: "James Kim",
+        avatarUrl: "https://i.pravatar.cc/150?img=33",
+        content: "Brilliant direction and performances. The tonal shifts are handled perfectly, and the social message is powerful.",
+        rating: 4.7,
+        date: "2023-07-12"
+      }
+    ]
+  },
+  "6": {
+    id: "6",
+    title: "Interstellar",
+    backdropUrl: "https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    posterUrl: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    rating: 4.7,
+    year: "2014",
+    releaseDate: "November 7, 2014",
+    runtime: "169 min",
+    director: "Christopher Nolan",
+    cast: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain", "Michael Caine"],
+    genres: ["Adventure", "Drama", "Sci-Fi"],
+    overview: "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+    trailerUrl: "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+    watchUrl: "https://www.paramountplus.com/",
+    reviews: [
+      {
+        id: "601",
+        author: "Daniel Clark",
+        avatarUrl: "https://i.pravatar.cc/150?img=40",
+        content: "A breathtaking journey through space and time. The visual effects and Hans Zimmer's score are outstanding.",
+        rating: 4.6,
+        date: "2023-02-28"
+      }
+    ]
+  },
+  "7": {
+    id: "7",
+    title: "The Godfather",
+    backdropUrl: "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
+    posterUrl: "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+    rating: 4.9,
+    year: "1972",
+    releaseDate: "March 24, 1972",
+    runtime: "175 min",
+    director: "Francis Ford Coppola",
+    cast: ["Marlon Brando", "Al Pacino", "James Caan", "Richard S. Castellano"],
+    genres: ["Crime", "Drama"],
+    overview: "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
+    trailerUrl: "https://www.youtube.com/watch?v=sY1S34973zA",
+    watchUrl: "https://www.paramountplus.com/",
+    reviews: [
+      {
+        id: "701",
+        author: "Thomas Anderson",
+        avatarUrl: "https://i.pravatar.cc/150?img=45",
+        content: "The definitive American crime film. Perfect performances, direction, and screenplay. A true masterpiece.",
+        rating: 5,
+        date: "2023-01-15"
+      },
+      {
+        id: "702",
+        author: "Lisa Rodriguez",
+        avatarUrl: "https://i.pravatar.cc/150?img=49",
+        content: "The performances by Brando and Pacino are legendary. Every aspect of filmmaking at its finest.",
+        rating: 4.9,
+        date: "2023-04-22"
+      }
+    ]
   }
 };
 
@@ -124,4 +278,44 @@ export const getMovieInfoForReview = (movieId: string) => {
     year: movie.year,
     posterUrl: movie.posterUrl
   };
+};
+
+// New function to search movies
+export const searchMovies = (query: string) => {
+  if (!query || query.trim() === '') {
+    return [];
+  }
+  
+  const searchTerm = query.toLowerCase().trim();
+  return Object.values(MOVIES_DATA).filter(movie => {
+    return (
+      movie.title.toLowerCase().includes(searchTerm) ||
+      movie.director.toLowerCase().includes(searchTerm) ||
+      movie.genres.some(genre => genre.toLowerCase().includes(searchTerm)) ||
+      movie.cast.some(actor => actor.toLowerCase().includes(searchTerm)) ||
+      movie.overview.toLowerCase().includes(searchTerm)
+    );
+  });
+};
+
+// Function to get featured movie (for homepage)
+export const getFeaturedMovie = () => {
+  // For simplicity, we'll just return a movie with high rating
+  const allMovies = getAllMovies();
+  const sortedMovies = [...allMovies].sort((a, b) => b.rating - a.rating);
+  return sortedMovies[0];
+};
+
+// Function to get similar movies based on genres
+export const getSimilarMovies = (movieId: string, limit = 4) => {
+  const movie = getMovieById(movieId);
+  if (!movie) return [];
+  
+  const allMovies = getAllMovies();
+  const similarMovies = allMovies
+    .filter(m => m.id !== movieId && m.genres.some(genre => movie.genres.includes(genre)))
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, limit);
+    
+  return similarMovies;
 };

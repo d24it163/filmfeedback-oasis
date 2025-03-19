@@ -27,12 +27,16 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Main routes */}
           <Route path="/" element={<Index />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/add-review" element={<AddReview />} />
+          
+          {/* Movie category pages */}
           <Route path="/top-rated" element={<TopRated />} />
           <Route path="/latest" element={<Latest />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          
+          {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

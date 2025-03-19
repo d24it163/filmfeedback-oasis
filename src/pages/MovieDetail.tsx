@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Tag, Clock, Film, Calendar, User, MessageSquare, Play, ExternalLink } from "lucide-react";
@@ -6,9 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import StarRating from "@/components/StarRating";
 import ReviewCard from "@/components/ReviewCard";
+import MovieCard from "@/components/MovieCard";
 import Navbar from "@/components/Navbar";
 import CastCrewSection from "@/components/CastCrewSection";
-import { getMovieById } from "@/services/movieService";
+import { getMovieById, getSimilarMovies } from "@/services/movieService";
 
 const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,6 +19,7 @@ const MovieDetail = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [movie, setMovie] = useState<any>(null);
+  const [similarMovies, setSimilarMovies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
@@ -36,6 +39,10 @@ const MovieDetail = () => {
       const movieData = getMovieById(id);
       if (movieData) {
         setMovie(movieData);
+        
+        // Get similar movies
+        const similar = getSimilarMovies(id);
+        setSimilarMovies(similar);
       } else {
         toast({
           title: "Movie not found",
@@ -246,9 +253,29 @@ const MovieDetail = () => {
             </TabsContent>
             
             <TabsContent value="similar">
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Similar movies coming soon</p>
-              </div>
+              {similarMovies.length > 0 ? (
+                <div>
+                  <h2 className="text-xl font-semibold mb-6">Similar Movies You Might Like</h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+                    {similarMovies.map((movie) => (
+                      <div key={movie.id}>
+                        <MovieCard
+                          id={movie.id}
+                          title={movie.title}
+                          posterUrl={movie.posterUrl}
+                          rating={movie.rating}
+                          year={movie.year}
+                          genre={movie.genres[0]}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">No similar movies found</p>
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </div>
