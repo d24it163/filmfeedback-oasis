@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Search, Film, Menu, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import MovieSelector from "@/components/MovieSelector";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -95,9 +96,7 @@ const Navbar = () => {
             Latest
           </Link>
         </div>
-        <Button size="sm" asChild>
-          <Link to="/add-review">Write Review</Link>
-        </Button>
+        <MovieSelector />
       </div>
 
       {/* Mobile Menu Button */}
@@ -150,9 +149,7 @@ const Navbar = () => {
             >
               Latest
             </Link>
-            <Button size="sm" className="mt-2" asChild>
-              <Link to="/add-review">Write Review</Link>
-            </Button>
+            <MovieSelector />
           </div>
         </div>
       )}

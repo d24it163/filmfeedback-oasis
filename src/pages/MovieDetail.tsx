@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Tag, Clock, Film, Calendar, User, MessageSquare, Play, ExternalLink } from "lucide-react";
@@ -8,6 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import StarRating from "@/components/StarRating";
 import ReviewCard from "@/components/ReviewCard";
 import Navbar from "@/components/Navbar";
+import CastCrewSection from "@/components/CastCrewSection";
 import { getMovieById } from "@/services/movieService";
 
 const MovieDetail = () => {
@@ -242,9 +242,7 @@ const MovieDetail = () => {
             </TabsContent>
             
             <TabsContent value="cast">
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Cast & Crew information coming soon</p>
-              </div>
+              <CastCrewSection director={movie.director} cast={movie.cast} />
             </TabsContent>
             
             <TabsContent value="similar">
