@@ -1,60 +1,23 @@
 
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Tag, Clock, Film, Calendar, User, MessageSquare } from "lucide-react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Tag, Clock, Film, Calendar, User, MessageSquare, Play, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 import StarRating from "@/components/StarRating";
 import ReviewCard from "@/components/ReviewCard";
 import Navbar from "@/components/Navbar";
-
-// Mock data for demonstration
-const MOVIE_DETAILS = {
-  id: "1",
-  title: "Inception",
-  backdropUrl: "https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
-  posterUrl: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-  rating: 4.8,
-  year: "2010",
-  releaseDate: "July 16, 2010",
-  runtime: "148 min",
-  director: "Christopher Nolan",
-  cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page", "Tom Hardy", "Ken Watanabe"],
-  genres: ["Action", "Sci-Fi", "Thriller"],
-  overview: "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: inception, the implantation of another person's idea into a target's subconscious.",
-  reviews: [
-    {
-      id: "101",
-      author: "Jane Smith",
-      avatarUrl: "https://i.pravatar.cc/150?img=5",
-      content: "A masterpiece of modern cinema. The visual effects are stunning, and the story is captivating from start to finish. The performances are exceptional, particularly DiCaprio's portrayal of Cobb.",
-      rating: 5,
-      date: "2023-06-15"
-    },
-    {
-      id: "102",
-      author: "John Doe",
-      avatarUrl: "https://i.pravatar.cc/150?img=8",
-      content: "An incredible film that challenges the mind. Nolan's direction is impeccable, weaving a complex narrative that rewards multiple viewings. The score by Hans Zimmer is haunting and memorable.",
-      rating: 4.5,
-      date: "2023-07-02"
-    },
-    {
-      id: "103",
-      author: "Alice Johnson",
-      avatarUrl: "https://i.pravatar.cc/150?img=9",
-      content: "While visually impressive, I found the plot unnecessarily convoluted. The concept is innovative, but the execution leaves something to be desired. Still worth watching for the spectacle.",
-      rating: 3.5,
-      date: "2023-08-10"
-    }
-  ]
-};
+import { getMovieById } from "@/services/movieService";
 
 const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [movie, setMovie] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -68,9 +31,60 @@ const MovieDetail = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
-  // In a real app, we'd fetch the movie details based on the ID
-  // For now, we'll just use the mock data
-  const movie = MOVIE_DETAILS;
+  useEffect(() => {
+    if (id) {
+      const movieData = getMovieById(id);
+      if (movieData) {
+        setMovie(movieData);
+      } else {
+        toast({
+          title: "Movie not found",
+          description: "The requested movie could not be found.",
+          variant: "destructive"
+        });
+        navigate("/");
+      }
+    }
+    setLoading(false);
+  }, [id, navigate, toast]);
+  
+  const handleWatchNow = () => {
+    if (movie?.watchUrl) {
+      window.open(movie.watchUrl, "_blank");
+    } else {
+      toast({
+        title: "Not available",
+        description: "This movie is not available for streaming at the moment.",
+      });
+    }
+  };
+  
+  const handleWatchTrailer = () => {
+    if (movie?.trailerUrl) {
+      window.open(movie.trailerUrl, "_blank");
+    } else {
+      toast({
+        title: "Trailer not available",
+        description: "No trailer is available for this movie.",
+      });
+    }
+  };
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse">Loading movie details...</div>
+      </div>
+    );
+  }
+  
+  if (!movie) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Movie not found</div>
+      </div>
+    );
+  }
   
   return (
     <div className={`min-h-screen bg-background transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -105,7 +119,7 @@ const MovieDetail = () => {
           {/* Movie Info */}
           <div className="md:w-3/4 space-y-4 animate-slide-up opacity-0" style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}>
             <div className="flex flex-wrap gap-2 mb-2">
-              {movie.genres.map((genre, index) => (
+              {movie.genres.map((genre: string, index: number) => (
                 <span 
                   key={index} 
                   className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/10 text-accent"
@@ -153,8 +167,14 @@ const MovieDetail = () => {
             </div>
             
             <div className="pt-4 flex space-x-4">
-              <Button>Watch Now</Button>
-              <Button variant="outline">+ Add to Watchlist</Button>
+              <Button onClick={handleWatchNow}>
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Watch Now
+              </Button>
+              <Button variant="outline" onClick={handleWatchTrailer}>
+                <Play className="mr-2 h-4 w-4" />
+                Watch Trailer
+              </Button>
             </div>
           </div>
         </div>
@@ -169,7 +189,7 @@ const MovieDetail = () => {
                 <span className="ml-2">{movie.rating.toFixed(1)}/5</span>
               </div>
             </div>
-            <Button size="sm">Watch Now</Button>
+            <Button size="sm" onClick={handleWatchNow}>Watch Now</Button>
           </div>
         </div>
         
@@ -202,17 +222,23 @@ const MovieDetail = () => {
             
             <TabsContent value="reviews" className="pt-2">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Movie Reviews</h2>
+                <h2 className="text-xl font-semibold">Movie Reviews ({movie.reviews.length})</h2>
                 <Button asChild variant="outline" size="sm">
                   <Link to={`/add-review?movie=${movie.id}`}>Write a Review</Link>
                 </Button>
               </div>
               
-              <div className="space-y-6">
-                {movie.reviews.map((review) => (
-                  <ReviewCard key={review.id} {...review} />
-                ))}
-              </div>
+              {movie.reviews.length > 0 ? (
+                <div className="space-y-6">
+                  {movie.reviews.map((review: any) => (
+                    <ReviewCard key={review.id} {...review} />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">No reviews yet. Be the first to review!</p>
+                </div>
+              )}
             </TabsContent>
             
             <TabsContent value="cast">

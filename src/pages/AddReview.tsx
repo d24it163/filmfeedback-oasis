@@ -4,25 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Film, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import StarRating from "@/components/StarRating";
 import Navbar from "@/components/Navbar";
 import { useToast } from "@/components/ui/use-toast";
-
-// Mock movie data for demonstration
-const MOVIE_DATA = {
-  "1": {
-    id: "1",
-    title: "Inception",
-    year: "2010",
-    posterUrl: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"
-  },
-  "2": {
-    id: "2",
-    title: "The Shawshank Redemption",
-    year: "1994",
-    posterUrl: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"
-  }
-};
+import { getMovieInfoForReview, addReview } from "@/services/movieService";
 
 const AddReview = () => {
   const { toast } = useToast();
@@ -33,15 +19,19 @@ const AddReview = () => {
   
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
+  const [authorName, setAuthorName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  
-  // In a real app, we would fetch the movie details based on the ID
-  const movie = movieId ? MOVIE_DATA[movieId as keyof typeof MOVIE_DATA] : null;
+  const [movie, setMovie] = useState<any>(null);
   
   useEffect(() => {
     setIsVisible(true);
-  }, []);
+    
+    if (movieId) {
+      const movieInfo = getMovieInfoForReview(movieId);
+      setMovie(movieInfo);
+    }
+  }, [movieId]);
   
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
@@ -49,6 +39,15 @@ const AddReview = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!movieId) {
+      toast({
+        title: "No movie selected",
+        description: "Please select a movie to review.",
+        variant: "destructive"
+      });
+      return;
+    }
     
     if (rating === 0) {
       toast({
@@ -68,14 +67,22 @@ const AddReview = () => {
       return;
     }
     
+    if (authorName.trim().length < 3) {
+      toast({
+        title: "Name required",
+        description: "Please provide your name (minimum 3 characters).",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Submitting review:", {
-        movieId: movie?.id || "unknown",
-        rating,
-        review
+    try {
+      addReview(movieId, {
+        author: authorName,
+        content: review,
+        rating
       });
       
       toast({
@@ -83,15 +90,16 @@ const AddReview = () => {
         description: "Thank you for sharing your thoughts!",
       });
       
-      // Navigate back to the movie detail page or homepage
-      if (movie) {
-        navigate(`/movie/${movie.id}`);
-      } else {
-        navigate("/");
-      }
-      
+      navigate(`/movie/${movieId}`);
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error submitting review",
+        description: "An error occurred while submitting your review. Please try again.",
+        variant: "destructive"
+      });
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
   
   return (
@@ -133,6 +141,21 @@ const AddReview = () => {
           
           <form onSubmit={handleSubmit}>
             <div className="space-y-6">
+              <div>
+                <label htmlFor="authorName" className="block text-sm font-medium mb-2">
+                  Your Name
+                </label>
+                <Input
+                  id="authorName"
+                  placeholder="Enter your name"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground mt-2">
+                  Minimum 3 characters required
+                </p>
+              </div>
+              
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Your Rating
